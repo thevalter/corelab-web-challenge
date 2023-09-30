@@ -13,6 +13,8 @@ import { AnimatePresence } from 'framer-motion';
 import { z } from 'zod';
 import { useRef, useState } from 'react';
 import { handleCreateNote } from '../../services/Notes';
+import { useMutation } from 'react-query';
+import { queryClient } from '../../context/QueryContext';
 
 const createNoteSchema = z.object({
     desc: z.string().nonempty(),
@@ -31,6 +33,12 @@ export const CreateCard = () => {
     const [desc, setDesc] = useState("");
     const [error, setError] = useState(false);
 
+    const mutation = useMutation(handleCreateNote, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('notes')
+          },
+    })
+
     const handleSubmit = async (e: React.SyntheticEvent) => {
 
         e.preventDefault();
@@ -43,7 +51,8 @@ export const CreateCard = () => {
 
         try {
             const validatedForm = createNoteSchema.parse(data);
-            await handleCreateNote(validatedForm)
+            await handleCreateNote(validatedForm);
+            mutation.mutate(data);
         } catch (err) {
             setError(true);
         }
