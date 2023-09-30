@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
 :root {
   /* max-width: 1100px; */
@@ -36,4 +36,20 @@ ul{
   list-style: none;
 }
 
+.inValid::placeholder{
+  color: red;
+}
+
+.valid::placeholder{
+  color: '#333';
+}
+
+`
+
+export const MainContainer = styled.main`
+  padding-bottom: 100px;
+  padding-inline: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 `
