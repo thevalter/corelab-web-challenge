@@ -2,13 +2,13 @@ import { useEffect, useRef } from 'react';
 import { handleUpdate } from '../../../services/Notes';
 import { ColorOption, ContainerColorPicker } from './styles';
 import { Note } from '../../RenderCardNotes';
-// import { handleColorNote } from '@/services/notes'
 
 interface ColorPickerProps {
   note: Note
   setIsOpenColorPicker: (bool: boolean) => void
   setColor: (color: string) => void
 }
+
 export const colors = [
   {
     color: '#BAE2FF',
@@ -20,7 +20,7 @@ export const colors = [
   },
   {
     color: '#FFE8AC',
-    name: 'laranja',
+    name: 'amarelo',
   },
   {
     color: '#FFCAB9',
@@ -28,7 +28,7 @@ export const colors = [
   },
   {
     color: '#F99494',
-    name: 'rosa',
+    name: 'vermelho',
   },
   {
     color: '#9DD6FF',
@@ -36,11 +36,11 @@ export const colors = [
   },
   {
     color: '#ECA1FF',
-    name: 'rosa',
+    name: 'roxo',
   },
   {
     color: '#DAFF8B',
-    name: 'verde',
+    name: 'amarelo',
   },
   {
     color: '#FFA285',
@@ -56,7 +56,7 @@ export const colors = [
   },
   {
     color: '#A99A7C',
-    name: 'cinza',
+    name: 'amarelo',
   },
 ]
 export const ColorPicker = ({
@@ -68,18 +68,18 @@ export const ColorPicker = ({
 
   const resizeColoPicker = () => {
     if (colorOptionsRef.current) {
-      const colorOptions = colorOptionsRef.current.getBoundingClientRect()
-      const widthWindow = window.innerWidth
-      let marginLeft = '10px'
+      const colorOptions = colorOptionsRef.current.getBoundingClientRect();
+      const widthWindow = window.innerWidth;
+      let marginLeft = '10px';
       if (colorOptions.right >= widthWindow) {
-        marginLeft = `${colorOptions.width - 900}px`
+        marginLeft = `${colorOptions.width - 900}px`;
       }
-      colorOptionsRef.current.style.marginLeft = marginLeft
+      colorOptionsRef.current.style.marginLeft = marginLeft;
     }
   }
   useEffect(() => {
-    resizeColoPicker()
-    window.addEventListener('resize', resizeColoPicker)
+    resizeColoPicker();
+    window.addEventListener('resize', resizeColoPicker);
   }, [setIsOpenColorPicker])
   return (
     <ContainerColorPicker
@@ -92,11 +92,11 @@ export const ColorPicker = ({
         return (
           <ColorOption
             key={color}
-            onClick={async() => {
-              setIsOpenColorPicker(false)
-              setColor(color)
+            onClick={async () => {
+              setIsOpenColorPicker(false);
+              setColor(color);
               note.color = color;
-              await handleUpdate(note, note._id)
+              await handleUpdate(note, note._id);
             }}
             color={color}
           />

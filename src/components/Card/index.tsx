@@ -9,7 +9,7 @@ import {
   EditNote,
   CardTitle,
   CardContent,
-} from './styles'
+} from './styles';
 import {
   CreateInputFavorite,
   InputFavoriteWrapper,
@@ -39,13 +39,11 @@ const editNoteSchema = z.object({
   title: z.string().nonempty(),
   favorite: z.boolean(),
   color: z.string()
-})
+});
 
 export type EditNoteData = z.infer<typeof editNoteSchema>
 
 export const Card = ({ note }: CardProps) => {
-
-  console.log(note);
 
   const [isOpenColorPicker, setIsOpenColorPicker] = useState(false);
   const [isEditNote, setIsEditNote] = useState(false);
@@ -53,13 +51,14 @@ export const Card = ({ note }: CardProps) => {
   const [favorite, setFavorite] = useState(note.favorite);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [error, setError] = useState(false);
   const deleteNote = useDeleteNote(note._id);
 
   const mutation = useMutation((data: EditNoteData) => handleUpdate(data, note._id), {
     onSuccess: () => {
       queryClient.invalidateQueries('notes')
       setTimeout(() => {
-        setIsEditNote(false)
+        setIsEditNote(false);
       }, 200)
     },
   });
@@ -80,7 +79,7 @@ export const Card = ({ note }: CardProps) => {
       await handleUpdate(validatedForm, note._id);
       mutation.mutate(data);
     } catch (err) {
-      console.log(err);
+      setError(true);
     }
   };
   
@@ -88,7 +87,6 @@ export const Card = ({ note }: CardProps) => {
     note.favorite = favorite;
     isEditNote ? null : handleUpdate(note, note._id);
     mutation.mutate(note);
-    console.log(favorite);
   }, [favorite])
 
   useEffect(() => {
@@ -110,7 +108,8 @@ export const Card = ({ note }: CardProps) => {
       <CardHeader>
         {isEditNote && (
           <CardInput
-            placeholder={'Titulo'}
+          className={error ? 'inValid' : 'valid'}
+          placeholder={error ? 'o Titulo é obrigatório' : 'Titulo'}
             defaultValue={note.title}
             value={title}
             onChange={e => setTitle(e.currentTarget.value)}
@@ -120,7 +119,6 @@ export const Card = ({ note }: CardProps) => {
         {!isEditNote && <CardTitle>{note.title}</CardTitle>}
         <InputFavoriteWrapper>
           <CreateInputFavorite
-          defaultChecked={note.favorite}
             type="checkbox"
             onChange={() => setFavorite(!favorite)}
             checked={favorite}
@@ -135,7 +133,8 @@ export const Card = ({ note }: CardProps) => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 30 }}
-            placeholder='Digite sua nota'
+            className={error ? 'inValid' : 'valid'}
+            placeholder={error ? 'A descrição da tarefa é obrigatória' : 'Criar nota...'}
             defaultValue={note.desc}
             value={desc}
             onChange={e => setDesc(e.currentTarget.value)}
@@ -148,7 +147,6 @@ export const Card = ({ note }: CardProps) => {
       <CardFooter>
         <EditOptions>
           <EditNote
-            isEditNote={isEditNote}
             onClick={() => setIsEditNote((prev) => !prev)}
           >
             <img src={editNote} alt="" />

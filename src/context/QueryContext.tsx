@@ -4,7 +4,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 interface QueryProviderProps {
   children: ReactNode
 }
-export const queryClient = new QueryClient()
+
+export const queryClient = new QueryClient();
 
 export const QueryProvider = ({ children }: QueryProviderProps) => {
   return (

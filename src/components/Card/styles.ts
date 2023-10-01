@@ -85,20 +85,16 @@ export const EditColor = styled.div`
   transition: background-color 0.4s ease;
 `
 
-type EditNoteProps = {
-    isEditNote: boolean
-}
-export const EditNote = styled.div<EditNoteProps>`
+export const EditNote = styled.div`
   display: flex;
   align-items: center;
   border-radius: 50%;
   justify-content: center;
   width: 28.901px;
   height: 28.901px;
-  background-color: ${({ isEditNote }) => isEditNote && '#ffe3b3'};
   transition: background-color 0.4s ease;
   :hover {
-    background-color: ${({ isEditNote }) => !isEditNote && '#E8E8E8'};
+    background-color: '#E8E8E8';
   }
 `
 export const CardTitle = styled.p``

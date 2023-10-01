@@ -1,8 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
-:root {
-  /* max-width: 1100px; */
-}
 
 * {
   padding: 0;
@@ -15,7 +12,7 @@ body {
   overflow-x: hidden;
   min-height:100vh;
   margin: 0 auto;
-
+  font-family: 'Inter', sans-serif;
 }
 textarea{
     font-family:inherit;

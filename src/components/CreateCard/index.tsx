@@ -35,7 +35,7 @@ export const CreateCard = () => {
 
     const mutation = useMutation(handleCreateNote, {
         onSuccess: () => {
-            queryClient.invalidateQueries('notes')
+            queryClient.invalidateQueries('notes');
           },
     })
 
@@ -60,9 +60,9 @@ export const CreateCard = () => {
 
     const handleChange = () => {
         if (textAreaRef.current) {
-            textAreaRef.current.style.height = '100%'
-            const scrollHeight = textAreaRef.current.scrollHeight
-            textAreaRef.current.style.height = scrollHeight + 'px'
+            textAreaRef.current.style.height = '100%';
+            const scrollHeight = textAreaRef.current.scrollHeight;
+            textAreaRef.current.style.height = scrollHeight + 'px';
         }
     }
 
@@ -95,7 +95,8 @@ export const CreateCard = () => {
                 onChange={e => setDesc(e.currentTarget.value)}
             />
             <AnimatePresence>
-                <AddNote
+                {title && desc !== "" &&(
+                    <AddNote
                     initial={{ y: 10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 10, opacity: 0 }}
@@ -104,6 +105,7 @@ export const CreateCard = () => {
                 >
                     Adicionar
                 </AddNote>
+                )}
             </AnimatePresence>
         </CreateForm>
     )

@@ -8,8 +8,8 @@ export const useFilterColors = () => {
         colorItem.color,
       ]
     } else {
-      colorsFilter[colorItem.name] = [colorItem.color]
+      colorsFilter[colorItem.name] = [colorItem.color];
     }
   })
-  return colorsFilter
+  return colorsFilter;
 };

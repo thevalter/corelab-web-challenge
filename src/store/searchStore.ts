@@ -8,6 +8,6 @@ interface StoreProps {
 export const useSearchStore = create<StoreProps>((set) => ({
   searchValue: '',
   setSearchValue: (value: string) => {
-    set({ searchValue: value })
+    set({ searchValue: value });
   },
-}))
+}));

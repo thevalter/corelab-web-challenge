@@ -5,8 +5,8 @@ import { useMutation } from 'react-query';
 export const useDeleteNote = (id: string) => {
   const mutation = useMutation(() => handleDeleteNote(id), {
     onSuccess: () => {
-      queryClient.invalidateQueries('notes')
+      queryClient.invalidateQueries('notes');
     },
   })
-  return mutation
+  return mutation;
 }
