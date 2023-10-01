@@ -84,6 +84,7 @@ export const Card = ({ note }: CardProps) => {
   };
   
   useEffect(() => {
+    setColor(color);
     note.favorite = favorite;
     isEditNote ? null : handleUpdate(note, note._id);
     mutation.mutate(note);
